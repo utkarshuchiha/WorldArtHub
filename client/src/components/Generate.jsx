@@ -13,6 +13,7 @@ import { getRandomPrompt } from "../assets/utils/getRandomPrompt";
 import Loader from "./Loader";
 import axios from "axios";
 import Card from "./Card";
+import { URL } from "../assets/utils/baseurl";
 
 const Generate = () => {
   let [value, setValue] = useState("");
@@ -34,33 +35,41 @@ const Generate = () => {
   };
 
   let handleRequest = async () => {
-    try {
-      setGeneratingImg(true);
-      setChange(false);
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/generate",
-        { prompt: value }
-      );
+    if (value) {
+      try {
+        setGeneratingImg(true);
+        setChange(false);
 
-      if (response) {
-        setFinalOutput({
-          prompt: response.data.prompt,
-          url: response.data.url[0],
+        const response = await axios.post(`${URL}api/v1/generate`, {
+          prompt: value,
         });
-      } else {
+
+        if (response) {
+          setFinalOutput({
+            prompt: response.data.prompt,
+            url: response.data.url[0],
+          });
+        } else {
+          setFinalOutput({
+            prompt: "MY ENGINE IS OVERHEATED",
+            url: "true",
+          });
+        }
+      } catch (err) {
         setFinalOutput({
           prompt: "MY ENGINE IS OVERHEATED",
           url: "true",
         });
+      } finally {
+        setGeneratingImg(false);
+        setChange(true);
       }
-    } catch (err) {
+    } else {
+      setChange(true);
       setFinalOutput({
-        prompt: "MY ENGINE IS OVERHEATED",
+        prompt: "Enter the Prompt First",
         url: "true",
       });
-    } finally {
-      setGeneratingImg(false);
-      setChange(true);
     }
   };
 

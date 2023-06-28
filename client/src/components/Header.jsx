@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Button, Flex, HStack, Heading, Image } from "@chakra-ui/react";
 import img1 from "../assets/1.png";
 import { Link } from "react-router-dom";
@@ -6,10 +6,18 @@ import loginContext from "../context/loginstatus/loginContext";
 
 const Header = () => {
   const { loggedIn, setLoggedIn } = useContext(loginContext);
+
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedIn(false);
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem('token'))
+    setLoggedIn(true);
+  },[loggedIn]);
+
 
   return (
     <Box bg="blackAlpha.900" w="100%" color="white">

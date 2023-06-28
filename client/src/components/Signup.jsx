@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import { URL } from "../assets/utils/baseurl";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -31,7 +32,7 @@ const Signup = () => {
       password,
     };
     const response = await axios.post(
-      "http://localhost:8000/user/signup",
+      `${URL}user/signup`,
       data
     );
     if (response.data.status === true) navigate("/login");

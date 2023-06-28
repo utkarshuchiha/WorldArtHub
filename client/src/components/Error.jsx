@@ -6,7 +6,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Error = ({ props }) => {
+const Error = (props) => {
+  console.log(props);
   return (
     <Alert status="error" minH={props} justifyContent={"center"}>
       <AlertIcon />

@@ -14,6 +14,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginContext from "../context/loginstatus/loginContext";
 import axios from "axios";
+import { URL } from "../assets/utils/baseurl";
 
 const Login = () => {
   const { setLoggedIn } = useContext(loginContext);
@@ -31,7 +32,7 @@ const Login = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8000/user/login",
+        `${URL}user/login`,
         data
       );
 

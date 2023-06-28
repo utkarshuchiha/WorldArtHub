@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { handleDownload } from "../assets/utils/download";
 import Error from "./Error";
+import { URL } from "../assets/utils/baseurl";
 
 const AllCard = () => {
   const [allPost, setAllPost] = useState([]);
@@ -23,7 +24,7 @@ const AllCard = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const post = await axios.get("http://localhost:8000/post/all-posts");
+        const post = await axios.get(`${URL}post/all-posts`);
         if (!post) {
           setErr(true);
         }
@@ -38,7 +39,7 @@ const AllCard = () => {
   return (
     <>
       {err ? (
-        <Error props={"100vh"}/>
+        <Error props="100vh" />
       ) : (
         <Container
           minW={"full"}
@@ -53,14 +54,13 @@ const AllCard = () => {
             bg={"gray.50"}
           >
             {allPost.map((p) => (
-              <Card minH={"400px"}>
+              <Card minH={"400px"} key={p._id}>
                 <CardBody bgColor={"chakra-body-bg._light"}>
                   <Image
                     src={p.img}
                     alt={p.prompt}
                     borderRadius="lg"
                     boxSize="400px"
-                    key={p._id}
                     objectFit={"contain"}
                   />
                 </CardBody>

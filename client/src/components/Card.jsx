@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "./Error";
+import { URL } from "../assets/utils/baseurl";
 
 const Card = ({ finalOutput }) => {
   const { err, setErr } = useState(false);
@@ -15,15 +16,11 @@ const Card = ({ finalOutput }) => {
       };
       const token = localStorage.getItem("token");
 
-      const response = await axios.post(
-        "http://localhost:8000/post/create-post",
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.post(`${URL}post/create-post`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.data.status === true) navigate("/all-posts");
     } catch (error) {
       setErr(true);
@@ -32,7 +29,7 @@ const Card = ({ finalOutput }) => {
 
   return (
     <Flex align={"center"} justify={"center"} h={"auto"}>
-      {finalOutput.url === "true" || err ? (
+      {(finalOutput.url === "true" || err) ? (
         <Error />
       ) : (
         <>
