@@ -6,4 +6,5 @@ const {generate}=require('../controller/ai');
 router.post('/v1/generate',generate);
 
 
+
 module.exports=router;

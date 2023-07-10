@@ -7,7 +7,6 @@ import {
 import React from "react";
 
 const Error = (props) => {
-  console.log(props);
   return (
     <Alert status="error" minH={props} justifyContent={"center"}>
       <AlertIcon />
